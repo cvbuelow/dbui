@@ -1,8 +1,9 @@
 'use strict';
-angular.module('dbui.login', ['ngRoute', 'dbui.components.auth'])
+angular.module('dbui.login', ['ui.router', 'dbui.components.auth'])
 
-.config(function($routeProvider) {
-  $routeProvider.when('/login', {
+.config(function($stateProvider) {
+  $stateProvider.state('login', {
+    url: '/login',
     templateUrl: 'scripts/login/login.html',
     controller: 'LoginCtrl'
   });

@@ -17,7 +17,7 @@ angular.module('dbui.components.auth', ['ngCookies'])
     guest: 'guest'
   })
 
-  .service('Auth', function($http, $location, $rootScope, $cookieStore, Session) {
+  .service('Auth', function($http, $state, $rootScope, $cookieStore, Session) {
       $rootScope.currentUser = $cookieStore.get('user');
       $cookieStore.remove('user');
 
@@ -29,7 +29,7 @@ angular.module('dbui.components.auth', ['ngCookies'])
         /*signup: function(user) {
           return $http.post('/api/signup', user)
             .success(function() {
-              $location.path('/login');
+              $state.go('login');
 
               $alert({
                 title: 'Congratulations!',
