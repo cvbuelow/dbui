@@ -8,7 +8,7 @@ angular.module('dbui.login', ['ngRoute', 'dbui.components.auth'])
   });
 })
 
-.controller('LoginCtrl', function($scope, Auth) {
+.controller('LoginCtrl', function($rootScope, $scope, Auth, AUTH_EVENTS) {
 
   $scope.login = function() {
     Auth.login({
@@ -19,6 +19,7 @@ angular.module('dbui.login', ['ngRoute', 'dbui.components.auth'])
         console.log(data);
         //$rootScope.currentUser = data;
         //$location.path('/');
+        $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
 
         $scope.alerts = [{
           msg: 'You have successfully logged in.',
@@ -26,6 +27,8 @@ angular.module('dbui.login', ['ngRoute', 'dbui.components.auth'])
         }];
       })
       .error(function() {
+        $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
+
         $scope.alerts = [{
           msg: 'Invalid username or password.',
           type: 'danger'
