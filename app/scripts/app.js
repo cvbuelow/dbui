@@ -1,24 +1,27 @@
 'use strict';
 
 angular.module('dbui', [
-    'ui.router',
+    'ngRoute',
     'ui.bootstrap',
     'dbui.login',
     'dbui.databases'
   ])
 
-  .config(function ($urlRouterProvider) {
-    $urlRouterProvider.otherwise('/login');
+  .config(function ($routeProvider) {
+    $routeProvider
+      .otherwise({
+        redirectTo: '/login'
+      });
   })
 
-  .run(function ($rootScope, AUTH_EVENTS, Auth, Session) {
+  .run(function ($rootScope, AUTH_EVENTS, Auth, Session, $location) {
 
     // Try to restore session
     Session.restore();
 
-    $rootScope.$on('$stateChangeStart', function (event, next) {
-      var authorizedRoles = next.data && next.data.authorizedRoles;
-
+    $rootScope.$on('$locationChangeStart', function (event, next) {
+      console.log($location.search(next));
+      var authorizedRoles = next.data.authorizedRoles;
       if (!Auth.isAuthorized(authorizedRoles)) {
         event.preventDefault();
         if (Auth.isAuthenticated()) {
