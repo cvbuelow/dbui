@@ -14,13 +14,12 @@ angular.module('dbui', [
       });
   })
 
-  .run(function ($rootScope, AUTH_EVENTS, Auth, Session, $location) {
+  .run(function ($rootScope, AUTH_EVENTS, Auth, Session) {
 
     // Try to restore session
     Session.restore();
 
-    $rootScope.$on('$locationChangeStart', function (event, next) {
-      console.log($location.search(next));
+    $rootScope.$on('$routeChangeStart', function (event, next) {
       var authorizedRoles = next.data.authorizedRoles;
       if (!Auth.isAuthorized(authorizedRoles)) {
         event.preventDefault();

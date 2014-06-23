@@ -18,8 +18,6 @@ angular.module('dbui.components.auth', ['ngCookies'])
   })
 
   .service('Auth', function($http, $location, $rootScope, $cookieStore, Session) {
-      $rootScope.currentUser = $cookieStore.get('user');
-      $cookieStore.remove('user');
 
       return {
         login: function(user) {
