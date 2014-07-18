@@ -4,8 +4,8 @@ angular.module('dbui.components.auth', ['dbui.components.session'])
 
     this.login = function(user) {
       return $http.post('http://localhost:3000/login', user)
-        .then(function() {
-          Session.create();
+        .then(function(response) {
+          Session.create(response.data);
           $rootScope.$broadcast('auth-login-success');
         });
     };
