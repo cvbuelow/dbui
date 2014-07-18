@@ -14,21 +14,31 @@ angular.module('dbui', [
       });
   })
 
-  .run(function ($rootScope, AUTH_EVENTS, Auth, Session) {
+  .run(function ($rootScope, $location, Auth, Session) {
 
     // Try to restore session
     Session.restore();
 
+    var gotoLogin = function() {
+      $location.path('/login');
+    };
+    var gotoDash = function() {
+      $location.path('/');
+    };
+
+    $rootScope.$on('auth-login-success', gotoDash);
+    $rootScope.$on('auth-not-authorized', gotoDash);
+
+    $rootScope.$on('auth-logout-success', gotoLogin);
+    $rootScope.$on('auth-not-authenticated', Auth.logout);
+
     $rootScope.$on('$routeChangeStart', function (event, next) {
-      var authorizedRoles = next.data.authorizedRoles;
-      if (!Auth.isAuthorized(authorizedRoles)) {
-        event.preventDefault();
-        if (Auth.isAuthenticated()) {
-          // user is not allowed
-          $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
+      // Restrict access per roles defined on route
+      if (!Session.isAuthorized(next.roles)) {
+        if (!Session.isAuthenticated()) {
+          $rootScope.$broadcast('auth-not-authenticated');
         } else {
-          // user is not logged in
-          $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
+          $rootScope.$broadcast('auth-not-authorized');
         }
       }
     });
@@ -36,7 +46,7 @@ angular.module('dbui', [
   })
 
 
-  .factory('authInterceptor', function($rootScope, $q, Session, AUTH_EVENTS) {
+  .factory('authInterceptor', function($rootScope, $q, Session) {
     return {
       request: function(config) {
         config.headers = config.headers || {};
@@ -46,14 +56,8 @@ angular.module('dbui', [
         return config;
       },
       responseError: function(response) {
-        if (response.status === 401) {
-          $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated, response);
-        }
-        if (response.status === 403) {
-          $rootScope.$broadcast(AUTH_EVENTS.notAuthorized, response);
-        }
-        if (response.status === 419 || response.status === 440) {
-          $rootScope.$broadcast(AUTH_EVENTS.sessionTimeout, response);
+        if([401, 403, 419, 440].indexOf(response.status) !== -1) {
+          $rootScope.$broadcast('auth-not-authenticated', response);
         }
         return $q.reject(response);
       }

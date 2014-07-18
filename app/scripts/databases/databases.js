@@ -1,11 +1,14 @@
 'use strict';
 angular.module('dbui.databases', ['ngRoute', 'dbui.components.auth'])
 
-.config(function ($routeProvider, USER_ROLES) {
-  $routeProvider.when('/databases', {
-    templateUrl: 'scripts/databases/databases.html',
-    data: {
-      authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor]
-    }
+  .config(function ($routeProvider) {
+    $routeProvider.when('/databases', {
+      templateUrl: 'scripts/databases/databases.html',
+      controller: 'DatabasesCtrl',
+      roles: ['admin', 'user']
+    });
+  })
+
+  .controller('DatabasesCtrl', function() {
+
   });
-});
