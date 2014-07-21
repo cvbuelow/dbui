@@ -2,10 +2,9 @@
 angular.module('dbui.databases', ['ngRoute', 'dbui.components.auth'])
 
   .config(function ($routeProvider) {
-    $routeProvider.when('/databases', {
+    $routeProvider.when('/', {
       templateUrl: 'scripts/databases/databases.html',
-      controller: 'DatabasesCtrl',
-      roles: ['admin', 'user']
+      controller: 'DatabasesCtrl'
     });
   })
 

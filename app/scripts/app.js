@@ -34,12 +34,10 @@ angular.module('dbui', [
 
     $rootScope.$on('$routeChangeStart', function (event, next) {
       // Restrict access per roles defined on route
-      if (!Session.isAuthorized(next.roles)) {
-        if (!Session.isAuthenticated()) {
-          $rootScope.$broadcast('auth-not-authenticated');
-        } else {
-          $rootScope.$broadcast('auth-not-authorized');
-        }
+      if (!Session.isAuthenticated()) {
+        $rootScope.$broadcast('auth-not-authenticated');
+      } else if (!Session.isAuthorized(next.roles)) {
+        $rootScope.$broadcast('auth-not-authorized');
       }
     });
 
@@ -71,4 +69,16 @@ angular.module('dbui', [
     }
     //disable IE ajax request caching
     $httpProvider.defaults.headers.get['If-Modified-Since'] = '0';
+  })
+
+  .controller('MainCtrl', function($scope, Auth) {
+    $scope.logout = Auth.logout;
+    $scope.alerts = [];
+    $scope.closeAlert = function(index) {
+      $scope.alerts.splice(index, 1);
+    };
+    $scope.alerts.push({
+          msg: 'Invalid username or password.',
+          type: 'danger'
+        });
   });

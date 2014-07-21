@@ -6,8 +6,6 @@
 
         <form method="post" ng-submit="login()" name="loginForm">
 
-          <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
-
           <div class="form-group">
             <input class="form-control input-lg" type="email" name="email"
                    ng-model="email" placeholder="Email" required autofocus>
