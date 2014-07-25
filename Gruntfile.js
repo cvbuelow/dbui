@@ -26,7 +26,7 @@ module.exports = function (grunt) {
       },
       js: {
         files: ['<%= yeoman.app %>/scripts/**/*.js'],
-        tasks: ['newer:jshint:all'],
+        tasks: ['injector', 'newer:jshint:all'],
         options: {
           livereload: '<%= connect.options.livereload %>'
         }
@@ -148,6 +148,19 @@ module.exports = function (grunt) {
       sass: {
         src: ['<%= yeoman.app %>/styles/**/*.{scss,sass}'],
         ignorePath: '<%= yeoman.app %>/bower_components/'
+      }
+    },
+
+    // Automatically inject app js files into index.html
+    injector: {
+      options: {
+        ignorePath: '<%= yeoman.app %>',
+        addRootSlash: false
+      },
+      app: {
+        files: {
+          '<%= yeoman.app %>/index.html': ['<%= yeoman.app %>/scripts/**/*.js'],
+        }
       }
     },
 
@@ -387,6 +400,7 @@ module.exports = function (grunt) {
     grunt.task.run([
       'clean:server',
       'wiredep',
+      'injector',
       'concurrent:server',
       'autoprefixer',
       'connect:livereload',
@@ -410,6 +424,7 @@ module.exports = function (grunt) {
   grunt.registerTask('build', [
     'clean:dist',
     'wiredep',
+    'injector',
     'useminPrepare',
     'concurrent:dist',
     'autoprefixer',

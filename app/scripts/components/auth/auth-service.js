@@ -1,5 +1,5 @@
 'use strict';
-angular.module('dbui.components.auth', ['dbui.components.session'])
+angular.module('dbui.components.auth', ['dbui.components.http', 'dbui.components.session'])
   .service('Auth', function($http, $rootScope, Session) {
 
     this.login = function(user) {

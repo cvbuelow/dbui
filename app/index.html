@@ -20,7 +20,7 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="container" ng-controller="MainCtrl">
+    <div class="container" ng-controller="AppCtrl">
       <div class="header">
         <ul class="nav nav-pills pull-right">
           <li><a href="#" ng-click="logout()">Logout</a></li>
@@ -77,12 +77,15 @@
     <!-- endbower -->
     <!-- endbuild -->
 
-        <!-- build:js({.tmp,app}) scripts/scripts.js -->
-        <script src="scripts/app.js"></script>
-        <script src="scripts/components/auth/auth-service.js"></script>
-        <script src="scripts/components/auth/session-service.js"></script>
-        <script src="scripts/login/login.js"></script>
-        <script src="scripts/databases/databases.js"></script>
-        <!-- endbuild -->
-</body>
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <!-- injector:js -->
+    <script src="scripts/app.js"></script>
+    <script src="scripts/components/auth/auth-service.js"></script>
+    <script src="scripts/components/auth/http-config.js"></script>
+    <script src="scripts/components/auth/session-service.js"></script>
+    <script src="scripts/databases/databases.js"></script>
+    <script src="scripts/login/login.js"></script>
+    <!-- endinjector -->
+    <!-- endbuild -->
+  </body>
 </html>
