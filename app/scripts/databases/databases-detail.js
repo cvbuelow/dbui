@@ -3,7 +3,7 @@ angular.module('dbui.databases.detail', ['ngRoute', 'dbui.components.api'])
 
   .config(function ($routeProvider) {
     $routeProvider.when('/databases/:databaseId?', {
-      templateUrl: 'scripts/databases/database.html',
+      templateUrl: 'scripts/databases/databases-detail.html',
       controller: 'DatabaseCtrl'
     });
   })

@@ -1,5 +1,5 @@
 <h1>Databases</h1>
 <ul>
-  <li ng-repeat="database in databases"><a href="#/databases/{{database._id}}">{{database.displayName}}</a> <a href="" class="btn btn-sm" ng-click="deleteDatabase(database)">Delete</a></li>
+  <li ng-repeat="database in databases"><a href="#/databases/{{database._id}}">{{database.displayName}}</a> <a href="" class="btn btn-danger btn-xs" ng-click="deleteDatabase(database)">Delete</a></li>
 </ul>
 <a href="#/databases" class="btn btn-primary">Add Database</a>
