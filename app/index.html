@@ -25,7 +25,7 @@
         <ul class="nav nav-pills pull-right">
           <li><a href="#" ng-click="logout()">Logout</a></li>
         </ul>
-        <h3 class="text-muted">dbui</h3>
+        <h3 class="text-muted"><a href="#">dbui</a></h3>
       </div>
 
       <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
@@ -80,9 +80,11 @@
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <!-- injector:js -->
     <script src="scripts/app.js"></script>
+    <script src="scripts/components/api.js"></script>
     <script src="scripts/components/auth/auth-service.js"></script>
     <script src="scripts/components/auth/http-config.js"></script>
     <script src="scripts/components/auth/session-service.js"></script>
+    <script src="scripts/databases/database.js"></script>
     <script src="scripts/databases/databases.js"></script>
     <script src="scripts/login/login.js"></script>
     <!-- endinjector -->

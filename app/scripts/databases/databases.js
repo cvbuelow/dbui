@@ -1,5 +1,10 @@
 'use strict';
-angular.module('dbui.databases', ['ngRoute', 'dbui.components.auth'])
+angular.module('dbui.databases', [
+    'ngRoute',
+    'dbui.components.auth',
+    'dbui.components.api',
+    'dbui.databases.detail'
+  ])
 
   .config(function ($routeProvider) {
     $routeProvider.when('/', {
@@ -8,6 +13,9 @@ angular.module('dbui.databases', ['ngRoute', 'dbui.components.auth'])
     });
   })
 
-  .controller('DatabasesCtrl', function() {
-
+  .controller('DatabasesCtrl', function($scope, API) {
+    $scope.databases = API.databases.query();
+    $scope.deleteDatabase = function(db) {
+      API.databases.delete(db);
+    };
   });
