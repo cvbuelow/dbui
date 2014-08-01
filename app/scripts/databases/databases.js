@@ -14,8 +14,12 @@ angular.module('dbui.databases', [
   })
 
   .controller('DatabasesCtrl', function($scope, API) {
-    $scope.databases = API.databases.query();
+    var getDatabases = function() {
+      $scope.databases = API.databases.query();
+    };
+    getDatabases();
+
     $scope.deleteDatabase = function(db) {
-      API.databases.delete(db);
+      API.databases.delete({databaseId: db._id}, getDatabases);
     };
   });

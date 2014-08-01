@@ -5,13 +5,14 @@ angular.module('dbui', [
     'ui.bootstrap',
     'dbui.components.auth',
     'dbui.login',
-    'dbui.databases'
+    'dbui.databases',
+    'dbui.tables'
   ])
 
   .config(function($routeProvider) {
     $routeProvider
       .otherwise({
-        redirectTo: '/login'
+        redirectTo: '/'
       });
   })
 

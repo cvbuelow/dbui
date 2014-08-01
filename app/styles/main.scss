@@ -16,6 +16,10 @@ body {
   padding-bottom: 20px;
 }
 
+h1 {
+  margin-top: 0;
+}
+
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
 .marketing,
@@ -39,6 +43,7 @@ body {
 
 /* Custom page footer */
 .footer {
+  margin-top: 19px;
   padding-top: 19px;
   color: #777;
   border-top: 1px solid #e5e5e5;

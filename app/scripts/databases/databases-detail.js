@@ -8,8 +8,9 @@ angular.module('dbui.databases.detail', ['ngRoute', 'dbui.components.api'])
     });
   })
 
-  .controller('DatabaseCtrl', function($scope, $routeParams, API) {
+  .controller('DatabaseCtrl', function($scope, $routeParams, $location, API, Session) {
     $scope.databaseId = $routeParams.databaseId;
+
     if ($routeParams.databaseId) {
       $scope.database = API.databases.get($routeParams);
     } else {
@@ -20,7 +21,11 @@ angular.module('dbui.databases.detail', ['ngRoute', 'dbui.components.api'])
       if ($routeParams.databaseId) {
         $scope.database.$update();
       } else {
-        $scope.database.$save();
+        $scope.database.$save(function(res) {
+          // Update logged in user with new roles
+          Session.update(res.user);
+          $location.path('/databases/' + res.id + '/tables');
+        });
       }
     };
 

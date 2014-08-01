@@ -13,6 +13,11 @@ angular.module('dbui.components.session', ['ngCookies'])
       $cookieStore.put('user', user);
     };
 
+    this.update = function(user) {
+      user.token = this.token;
+      this.create(user);
+    };
+
     this.destroy = function () {
       this.token = null;
       this.email = null;
