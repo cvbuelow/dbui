@@ -16,7 +16,7 @@ angular.module('dbui', [
       });
   })
 
-  .controller('AppCtrl', function($scope, $rootScope, $location, Auth, Session) {
+  .controller('AppCtrl', function($scope, $rootScope, $location, $exceptionHandler, Auth, Session) {
 
     // Try to restore session
     Session.restore();
@@ -34,6 +34,10 @@ angular.module('dbui', [
     $rootScope.$on('auth-logout-success', gotoLogin);
     $rootScope.$on('auth-not-authenticated', Auth.logout);
 
+    $rootScope.$on('http-error', function() {
+      $scope.addAlert('Error');
+    });
+
     $rootScope.$on('$routeChangeStart', function (event, next) {
       // Restrict access per roles defined on route
       if (!Session.isAuthenticated()) {
@@ -44,8 +48,16 @@ angular.module('dbui', [
     });
 
     $scope.logout = Auth.logout;
+    $scope.isAuthenticated = Session.isAuthenticated;
+
     $scope.alerts = [];
     $scope.closeAlert = function(index) {
       $scope.alerts.splice(index, 1);
+    };
+    $scope.addAlert = function(msg, type) {
+      $scope.alerts.push({
+        msg: msg,
+        type: type || 'danger'
+      });
     };
   });

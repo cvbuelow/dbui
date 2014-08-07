@@ -20,8 +20,10 @@ angular.module('dbui.components.http', ['dbui.components.session'])
         return config;
       },
       responseError: function(response) {
-        if([401, 403, 419, 440].indexOf(response.status) !== -1) {
+        if (response.status === 401) {
           $rootScope.$broadcast('auth-not-authenticated', response);
+        } else {
+          $rootScope.$broadcast('http-error', response);
         }
         return $q.reject(response);
       }

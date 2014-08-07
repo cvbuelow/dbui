@@ -10,11 +10,10 @@ angular.module('dbui.login', ['ngRoute', 'dbui.components.auth'])
 
   .controller('LoginCtrl', function($scope, Auth) {
     $scope.login = function() {
-      Auth.login($scope.user).then(null, function() {
-        $scope.alerts.push({
-          msg: 'Invalid username or password.',
-          type: 'danger'
-        });
+      Auth.login($scope.user).then(null, function(response) {
+        if (response.status === 401) {
+          $scope.addAlert('Invalid username or password.');
+        }
       });
     };
   });

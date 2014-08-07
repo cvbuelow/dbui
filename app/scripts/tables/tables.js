@@ -19,7 +19,7 @@ angular.module('dbui.tables', [
     };
     getTables();
 
-    $scope.deleteDatabase = function(db) {
-      API.tables.delete({databaseId: db._id}, getTables);
+    $scope.deleteTable = function(table) {
+      API.tables.delete({databaseId: table.database, tableId: table._id}, getTables);
     };
   });
