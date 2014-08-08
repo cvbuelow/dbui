@@ -39,16 +39,19 @@ angular.module('dbui', [
     });
 
     $rootScope.$on('$routeChangeStart', function (event, next) {
-      // Restrict access per roles defined on route
-      if (!Session.isAuthenticated()) {
+      if (!next.public && !Session.isAuthenticated()) {
         $rootScope.$broadcast('auth-not-authenticated');
-      } else if (!Session.isAuthorized(next.roles)) {
-        $rootScope.$broadcast('auth-not-authorized');
       }
     });
 
+    $rootScope.$on('$routeChangeSuccess', function() {
+      $scope.alerts = [];
+    });
+
     $scope.logout = Auth.logout;
-    $scope.isAuthenticated = Session.isAuthenticated;
+    $scope.isAuthenticated = function() {
+      return Session.isAuthenticated();
+    };
 
     $scope.alerts = [];
     $scope.closeAlert = function(index) {

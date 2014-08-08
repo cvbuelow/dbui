@@ -14,16 +14,18 @@ angular.module('dbui.components.http', ['dbui.components.session'])
     return {
       request: function(config) {
         config.headers = config.headers || {};
-        if (Session.token) {
-          config.headers.Authorization = 'Bearer ' + Session.token;
+        if (Session.isAuthenticated()) {
+          config.headers.Authorization = 'Bearer ' + Session.user.token;
         }
         return config;
       },
       responseError: function(response) {
         if (response.status === 401) {
-          $rootScope.$broadcast('auth-not-authenticated', response);
+          $rootScope.$broadcast('auth-not-authenticated');
+        } else if (response.status === 403) {
+          $rootScope.$broadcast('auth-not-authorized');
         } else {
-          $rootScope.$broadcast('http-error', response);
+          $rootScope.$broadcast('http-error');
         }
         return $q.reject(response);
       }

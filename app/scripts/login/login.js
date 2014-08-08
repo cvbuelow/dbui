@@ -4,7 +4,8 @@ angular.module('dbui.login', ['ngRoute', 'dbui.components.auth'])
   .config(function($routeProvider) {
     $routeProvider.when('/login', {
       templateUrl: 'scripts/login/login.html',
-      controller: 'LoginCtrl'
+      controller: 'LoginCtrl',
+      public: true
     });
   })
 
@@ -15,5 +16,16 @@ angular.module('dbui.login', ['ngRoute', 'dbui.components.auth'])
           $scope.addAlert('Invalid username or password.');
         }
       });
+    };
+  })
+
+  .directive('autoFill', function($timeout) {
+    return {
+      restrict: 'A',
+      link: function(scope, element) {
+        $timeout(function() {
+          element.checkAndTriggerAutoFillEvent();
+        }, 200);
+      }
     };
   });
