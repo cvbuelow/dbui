@@ -1,6 +1,6 @@
 'use strict';
 angular.module('dbui.components.api', ['ngResource'])
-  .service('API', function($resource) {
+  .service('API', function($resource, $http) {
     var baseUrl = 'http://localhost:3000';
     var actions = {
       update: { method: 'PUT' }
@@ -10,4 +10,7 @@ angular.module('dbui.components.api', ['ngResource'])
     this.fields = $resource(baseUrl + '/tables/:tableId/fields/:fieldId', null, actions);
     this.records = $resource(baseUrl + '/tables/:tableId/records/:recordId', null, actions);
 
+    this.databases.test = function(database) {
+      return $http.post(baseUrl + '/databases/test', database);
+    };
   });

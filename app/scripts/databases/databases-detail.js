@@ -17,12 +17,19 @@ angular.module('dbui.databases.detail', ['ngRoute', 'dbui.components.api'])
       $scope.database = new API.databases();
     }
 
+    $scope.test = function() {
+      API.databases.test($scope.database)
+        .then(function(res) {
+          console.log(res);
+        });
+    };
+
     $scope.save = function() {
       if ($routeParams.databaseId) {
         $scope.database.$update();
       } else {
         $scope.database.$save(function(res) {
-          $location.path('/databases/' + res.role.database + '/tables');
+          $location.path('/databases/' + res.id + '/tables');
         });
       }
     };
