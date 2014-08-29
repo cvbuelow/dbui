@@ -13,4 +13,13 @@ angular.module('dbui.components.api', ['ngResource'])
     this.databases.test = function(database) {
       return $http.post(baseUrl + '/databases/test', database);
     };
+
+    this.databases.getRemoteTables = function(databaseId) {
+      return $http.get(baseUrl + '/databases/' + databaseId + '/remote-tables')
+        .then(function(res) {
+          return res.data[0].map(function(obj) {
+            return obj[Object.keys(obj)[0]];
+          });
+        });
+    };
   });

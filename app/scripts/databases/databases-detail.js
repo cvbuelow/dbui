@@ -19,8 +19,10 @@ angular.module('dbui.databases.detail', ['ngRoute', 'dbui.components.api'])
 
     $scope.test = function() {
       API.databases.test($scope.database)
-        .then(function(res) {
-          console.log(res);
+        .then(function() {
+          $scope.addAlert('Connection successful', 'success');
+        }, function(res) {
+          $scope.addAlert(res.data.message);
         });
     };
 

@@ -17,6 +17,11 @@ angular.module('dbui.tables.detail', ['ngRoute', 'dbui.components.api'])
       $scope.table = new API.tables();
     }
 
+    API.databases.getRemoteTables($routeParams.databaseId)
+      .then(function(res) {
+        $scope.remoteTables = res;
+      });
+
     $scope.save = function() {
       if ($routeParams.databaseId) {
         $scope.table.$update();
