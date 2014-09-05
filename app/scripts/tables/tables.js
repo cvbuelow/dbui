@@ -19,7 +19,7 @@ angular.module('dbui.tables', [
     };
     getTables();
 
-    $scope.databaseId = $routeParams.databaseId;
+    $scope.database = API.databases.get($routeParams);
 
     $scope.deleteTable = function(table) {
       API.tables.delete({databaseId: table.databaseId, tableId: table._id}, getTables);
