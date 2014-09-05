@@ -11,10 +11,10 @@ angular.module('dbui.tables.detail', ['ngRoute', 'dbui.components.api'])
   .controller('TableCtrl', function($scope, $routeParams, $location, API) {
     $scope.databaseId = $routeParams.databaseId;
 
-    if ($routeParams.databaseId) {
+    if ($routeParams.tableId) {
       $scope.table = API.tables.get($routeParams);
     } else {
-      $scope.table = new API.tables();
+      $scope.table = new API.tables($routeParams);
     }
 
     API.databases.getRemoteTables($routeParams.databaseId)
@@ -23,7 +23,7 @@ angular.module('dbui.tables.detail', ['ngRoute', 'dbui.components.api'])
       });
 
     $scope.save = function() {
-      if ($routeParams.databaseId) {
+      if ($routeParams.tableId) {
         $scope.table.$update();
       } else {
         $scope.table.$save(function(res) {

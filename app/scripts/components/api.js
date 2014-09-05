@@ -6,7 +6,7 @@ angular.module('dbui.components.api', ['ngResource'])
       update: { method: 'PUT' }
     };
     this.databases = $resource(baseUrl + '/databases/:databaseId', {databaseId: '@_id'}, actions);
-    this.tables = $resource(baseUrl + '/databases/:databaseId/tables/:tableId', null, actions);
+    this.tables = $resource(baseUrl + '/databases/:databaseId/tables/:tableId', {databaseId: '@databaseId', tableId: '@_id'}, actions);
     this.fields = $resource(baseUrl + '/tables/:tableId/fields/:fieldId', null, actions);
     this.records = $resource(baseUrl + '/tables/:tableId/records/:recordId', null, actions);
 
