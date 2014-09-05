@@ -14,11 +14,14 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
 body {
   padding-top: 20px;
   padding-bottom: 20px;
-  background-color: rgba(68, 101, 114, 0.29);
 }
 
 h1 {
   margin-top: 0;
+}
+
+.form-control {
+  background-color: rgb(255, 250, 217);
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */

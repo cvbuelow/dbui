@@ -1,9 +1,15 @@
+<div class="page-header">
+  <h1>
+    <span ng-if="tableId">Update</span>
+    <span ng-if="!tableId">Add</span> Table</h1>
+</div>
+
+<ul class="nav nav-tabs" role="tablist">
+  <li class="active"><a>Setup</a></li>
+  <li><a ng-href="#/tables/{{tableId}}/fields">Fields</a></li>
+</ul>
+
 <form name="form" ng-submit="save()" novalidate>
-  <div class="page-header">
-    <h1>
-      <span ng-if="tableId">Update</span>
-      <span ng-if="!tableId">Add</span> Table</h1>
-  </div>
 
   <div class="form-group">
     <label class="control-label">Remote Table</label>

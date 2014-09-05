@@ -6,7 +6,8 @@ angular.module('dbui', [
     'dbui.components.auth',
     'dbui.login',
     'dbui.databases',
-    'dbui.tables'
+    'dbui.tables',
+    'dbui.fields'
   ])
 
   .config(function($routeProvider) {
