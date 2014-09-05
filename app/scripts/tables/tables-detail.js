@@ -9,7 +9,7 @@ angular.module('dbui.tables.detail', ['ngRoute', 'dbui.components.api'])
   })
 
   .controller('TableCtrl', function($scope, $routeParams, $location, API) {
-    $scope.databaseId = $routeParams.databaseId;
+    $scope.tableId = $routeParams.tableId;
 
     if ($routeParams.tableId) {
       $scope.table = API.tables.get($routeParams);
